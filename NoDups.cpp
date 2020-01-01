@@ -1,3 +1,8 @@
+//Saber Interactive - 1
+/*Напишите функцию, удаляющую последовательно дублирующиеся символы в строке:
+	("AAA BBB ААА" -> "A B А")
+void RemoveDups (char *pStr);
+*/
 #include <string>
 #include <time.h>						//для работы со случайными числами в тестах
 
