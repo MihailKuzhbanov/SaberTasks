@@ -1,1 +1,1 @@
-g++ *.cpp -o TestExec 
+g++ main.cpp -o TestExec 

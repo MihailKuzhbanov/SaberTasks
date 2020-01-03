@@ -1,6 +1,6 @@
 //Saber Interactive - 2
 /*
-Реализуйте функции сериализации и десериализации двусвязного списка в бинарном формате в файл. Алгоритмическая сложность должна быть быстрее квадратичной. 
+Реализуйте функции сериализации и десериализации двусвязного списка в бинарном формате в файл. Алгоритмическая сложность должна быть быстрее квадратичной.
 struct ListNode {
      ListNode *      prev;
      ListNode *      next;
@@ -22,11 +22,10 @@ private:
 #include <iostream>
 #include <fstream>
 
-#define _CRT_SECURE_NO_DEPRECATE		//для возможности работать с fopen() (unsafe), с помощью которого получен указатель на файл (в соответствии с требованием задания)
-										//при необходимости добавить в настройках проекта (для MS Visual Studio)
-										//для gcc/g++ макрос не требуется
-
-
+//для возможности работать с fopen() (unsafe), с помощью которого получен указатель на файл (в соответствии с требованием задания)
+//при необходимости добавить в настройках проекта (для MS Visual Studio)
+//для gcc/g++ макрос не требуется
+#define _CRT_SECURE_NO_DEPRECATE
 
 struct ListNode {
 	ListNode * prev;
@@ -79,7 +78,7 @@ public:
 		SetTail(root);
 	}
 
-	//фукция сериализации
+	//функция сериализации
 	//
 	//
 	void Serialize(FILE * file) {
@@ -93,7 +92,7 @@ public:
 		}
 	}
 
-	//фукция десериализации
+	//функция десериализации
 	//
 	//
 	void Deserialize(FILE * file) {
@@ -152,8 +151,6 @@ public:
 		AddFirst(node);
 	}
 
-
-
 	//геттеры/сеттеры полей
 	void SetHead(ListNode * newHead) {
 		this->head = newHead;
@@ -176,54 +173,3 @@ private:
 	ListNode * tail;
 	int count;
 };
-
-
-
-List GenerateList(int listSize, int wordSize) {
-	List resultList;
-	for (int i = 0; i < listSize; i++) {
-		resultList.AddLast(GenerateWord(wordSize));
-	}
-	return resultList;
-}
-
-void ShowList(List list) {
-	ListNode * tempHead = list.GetHead();
-	ListNode * tempTail = list.GetTail();
-	while (tempHead != tempTail) {
-		std::cout << tempHead->GetData() << std::endl;
-		tempHead = tempHead->GetNext();
-	}
-}
-
-//тест (де)сериализизации
-//в качестве аргумента путь к файлу для удобства тестирования
-//функция сериализации работает с указателем на файл
-void SerializationTest(std::string filePath) {
-	List testList;
-	List testListNew;
-	std::string path = filePath;
-	FILE * file;
-
-	std::cout << "Serialization section" << std::endl;
-	//открытие файла для записи в бинарном режиме
-	if ((file = fopen(path.c_str(), "wb")) == NULL) {
-		std::cout << "Cannot open file.\n";
-		exit(1);
-	}
-	testList = GenerateList(10, 5);
-	ShowList(testList);
-	testList.Serialize(file);
-	fclose(file);
-
-	std::cout << "Deserialization section" << std::endl;
-	//открытие файла для чтения в бинарном режиме
-	if ((file = fopen(path.c_str(), "rb")) == NULL) {
-		std::cout << "Cannot open file.\n";
-		exit(1);
-	}
-	testListNew.Deserialize(file);
-	fclose(file);
-	std::cout << std::endl;
-	ShowList(testListNew);
-}
